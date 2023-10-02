@@ -1,0 +1,36 @@
+from django.urls import path
+from .views import *
+urlpatterns = [
+    path('signup/', SellerCreation, name='seller-creation'),
+    path('token/<str:username>/<str:token>/',Gmail_Token_Verification,name="token"),
+    path('forget_pass_mail/',seller_forgot_password_mail,name="seller_forgot_password_mail"),
+    path('otp_verification/<int:id>/',seller_forgot_password_otp_verification,name="seller_forgot_password_otp_verification"),
+    path('reset_password/<int:id>/',seller_reset_pass,name="seller_reset_pass"),
+    path('login/', SellerLogin, name='seller-login'),
+    path('password_changed/',Change_Password,name="seller-password_changed"),
+    path('home/',home,name='seller-home'),
+    path('seller_changed/',SellerChange,name="seller-changed"),
+    path('logout/',seller_logout,name='seller-logout'),
+    path('add_hotel_image/',Add_Hotel_Image,name="seller-add_hotel_image"),
+    path('confirm_delete/<int:id>/', conirm_delete, name="confirm-delete"),
+    path('delete/<int:id>/', hotel_image_delete, name="delete"),
+    path('adding_room/', adding_room, name="adding-room"),
+    path('room_detail/<int:seller_id>/<int:room_id>/',room_detail,name="room-detail"),
+    path('total_rooms/<int:seller_id>/',total_rooms,name="total-rooms"),
+    path('confirmation_room_image_delete/<int:image_id>/<int:seller_id>/<int:room_id>/',
+         confirmation_delete_room_image, name="confirmation_delete_room_image"),
+    path('delete_room_image/<int:image_id>/<int:seller_id>/<int:room_id>/'
+         , delete_room_image, name="delete_room_image"),
+    path('amenity_change/<int:amenity_id>/<int:room_id>/<int:seller_id>/',
+         AmenityChange,name="amenity_change"),
+    path('confirmation_amenity_delete/<int:amenity_id>/<int:room_id>/<int:seller_id>/',
+         confirmation_amenity_delete, name="confirmation_amenity_delete"),
+    path('delete_amenity/<int:amenity_id>/<int:room_id>/<int:seller_id>/',
+         delete_amenity, name="delete_amenity"),
+    path('forgot_pass_mail/', seller_forgot_password_mail, name="seller_forgot_password_mail"),
+    path('otp_verification/<int:id>/', seller_otp_verification, name="seller_otp_verification"),
+    path('reset_password/<int:id>/', seller_reset_pass, name="seller_reset_pass"),
+    path('pending_reservations/<int:seller_id>/',pending_reservations,name="pending_reservations"),
+    path('accept_reservation/<int:reservation_id>/',accept_reservation,name="accept_reservation"),
+
+]

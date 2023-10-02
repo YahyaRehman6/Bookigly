@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for i in otp_form %}
+        {{i.label}} &nbsp; {{i}} <br> {{i.errors}}
+        {% endfor %}
+        <br>
+        <input type="submit" value="verify">
+    </form>
+    <br>
+    <button>
+        <a href="{% url 'seller_forgot_password_mail' %}">
+            Back
+        </a>
+    </button>
+    <br>
+    {% if messages %}
+    {% for i in messages %}
+    {{i}}
+    {% endfor %}
+    {% endif %}
+</body>
+</html>

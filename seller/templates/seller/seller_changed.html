@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+</head>
+<body>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for i in detail %}
+        {{i.label}} &nbsp; {{i}}<br>{{i.errors}}<br>
+        {% endfor %}
+        <input type="submit" value="save"><br>
+        <br>
+        <button>
+            <a href="{% url 'seller-home' %}">Back</a>
+        </button>
+        <br><br>
+        <button>
+            <a href="{% url 'seller-password_changed' %}">Change Password</a>
+        </button>
+        
+        {% if messages %}
+            {% for i in messages %}
+                {{i}}
+            {% endfor %}
+        {% endif %}
+        
+    </form>
+    
+</body>
+</html>

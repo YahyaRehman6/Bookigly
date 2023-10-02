@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form novalidate method="post">
+        {% csrf_token %}
+        {% for i in detail %}
+        {{i.label}} &nbsp; {{i}} <br> {{i.errors}}<br>
+        {% endfor %}
+        <br>
+        {% if signin %}
+        <input type="submit" value="signin">
+        <br><br>
+        <button>
+            <a href="{% url 'customer_login' %}">
+                Login Page
+            </a>
+        </button>
+
+        {% endif %}
+        
+        {% if login %}
+        <input type="submit" value="Login">
+        <br><br>
+        <button>
+            <a href="{% url 'customer_signin' %}">
+                SignIn Page
+            </a>
+        </button>
+        <br><br>
+        <button>
+            <a href="{% url 'customer-pass_otp_mail' %}">
+                Forgot Password ?
+            </a>
+        </button>
+
+        {% endif %}
+
+
+        {% if change %}
+        <input type="submit" value="Save">
+        <button>
+            <a href="{% url 'customer_home' %}">
+                Back
+            </a>
+        </button>
+        <br><br>
+        <button>
+            <a href="{% url 'pass_change' %}">
+                Change Password
+            </a>
+        </button>
+        {% endif %}
+
+    
+        {% if password %}
+        <input type="submit" value="Save">
+            <button>
+                <a href="{% url 'edit_info' %}">
+                    Back
+                </a>
+            </button>
+        
+        {% endif %}
+        
+    
+    </form>
+    {% if messages %}
+    {% for i in messages %}
+    {{i}}
+    {% endfor %}
+    {% endif %}
+</body>
+</html>

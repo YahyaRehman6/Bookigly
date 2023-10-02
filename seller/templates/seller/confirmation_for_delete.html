@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- this template is the confirmation of deleting image for both hotal and 
+    room images -->
+    <form>
+        <!-- for hotel image -->
+        {% if hotel %}
+        <button>
+            <a href="{% url 'delete' id %}">Delete</a>
+        </button>
+        
+        <br><br>
+        <button>
+            <a href="{% url 'seller-add_hotel_image' %}">Back</a>
+        </button>
+        {% endif %}
+
+        <!-- for room images  -->
+
+        {% if room %}
+        <button>
+            <a href="{% url 'delete_room_image' image_id seller_id room_id %}">Delete</a>
+        </button>
+        
+        <br><br>
+        <button>
+            <a href="{% url 'seller-add_hotel_image' %}">Back</a>
+        </button>
+        {% endif %}
+
+        <!-- For Amenity -->
+
+        {% if amenity %}
+        <button>
+            <a href="{% url 'delete_amenity' amenity_id room_id seller_id %}">
+                Delete
+            </a>
+        </button>
+        
+        <br><br>
+        <button>
+            <a href="{% url 'amenity_change' amenity_id room_id seller_id %}">Back</a>
+        </button>
+        {% endif %}
+    </form>
+</body>
+</html>

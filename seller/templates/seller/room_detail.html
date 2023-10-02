@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>
+            Detail of Room Number {{room}}
+        </h1>
+    </center>
+<form method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% for i in images %}
+    <a href="{% url 'confirmation_delete_room_image' i.id seller_id room_id %}">
+        <img src="{{i.image.url}}" height="100" width="70">
+    </a>
+    {% endfor %}
+    
+    <br><br>
+    
+    <h3>Amenities are :</h3>
+    {% for i in room_amenities_objects %}
+    <div>
+        <a href="{% url 'amenity_change' i.id room_id seller_id %}">
+            {{i.amenity}}
+        </a>
+    <br>
+    </div>
+    {% endfor %}
+    <br><br>
+    {% for i in form %}
+    {{i.label}} &nbsp; {{i}}<br>{{i.errors}}<br>
+    {% endfor %}
+    <input type="submit" value="save">           
+    <br><br>
+    
+    {% for i in detail %}
+    {{i.label}} &nbsp; {{i}}<br>{{i.errors}}<br>
+    {% endfor %}
+    
+    <input type="submit" value="upload">
+    
+    <br><br>
+    
+    <button>
+        <a href="{% url 'seller-home' %}">Home</a>
+    </button>
+    
+    <br><br>
+    
+    <button>
+        <a href="{% url 'total-rooms' seller_id %}">Back</a>
+    </button>
+    
+    {% if messages %}
+        {% for i in messages %}
+            {{i}}
+        {% endfor %}
+    {% endif %}
+</form>
+</body>
+</html>

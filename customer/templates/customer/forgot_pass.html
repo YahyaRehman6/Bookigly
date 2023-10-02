@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+</head>
+<body>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for i in password_form %}
+        {{i.label}} &nbsp; {{i}} <br> {{i.errors}}
+        {% endfor %}
+        <br>
+        <input type="submit">
+        <br><br>
+        <button>
+            <a href="{% url 'customer_login' %}">
+                Back
+            </a>
+        </button>
+        <br>
+        {% if messages %}
+        {% for i in messages %}
+        {{i}}
+        {% endfor %}
+        {% endif %}
+        
+    </form>
+</body>
+</html>

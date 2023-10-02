@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{name}}</h1>
+    <hr>
+<form enctype="multipart/form-data">
+    {% for i in objects %}
+    Hotel Name : 
+    <a href="{% url 'hotel_detail' i.id %}">{{i.hotel_name}}<br>
+    </a>
+        Hotel Address : {{i.hotel_address}} &nbsp; &nbsp; <br>
+        Contact Number : {{i.phone_number}} &nbsp; &nbsp; <br>
+        <br>
+    
+        {% for img in images %}
+            {% if i.id == img.seller_id %}
+                <img src="{{img.image.url}}" height="100" width="70">
+            {% endif %}
+        {% endfor %}
+        <br>
+    
+        {% endfor %}
+    
+    <hr>
+    <button>
+        <a href="{% url 'customer_logout' %}">
+            Logout
+        </a>
+    </button>
+    <br><br>
+    <button>
+        <a href="{% url 'edit_info' %}">
+            Edit Info
+        </a>
+    </button><br>
+    <br>
+    <button>
+        <a href="{% url 'total_reservations' %}">Reservations</a>
+    </button>
+    {% if messages %}
+    {% for i in messages %}
+    {{i}}
+    {% endfor %}
+    {% endif %}
+
+</form>
+</body>
+</html>

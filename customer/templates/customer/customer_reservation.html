@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Room Number : {{room_number}}</h1>
+    <br>
+    <ul>
+        {% for dates in reserved_dates %}
+        <li>
+            Room is reserved from {{dates.check_in_date}} to {{dates.check_out_date}}
+        </li>
+        {% endfor %}
+    </ul>
+<form action="" novalidate method="post">
+    {% csrf_token %}
+    {% for i in room_reservation_form %}
+    {{i.label}} &nbsp; {{i}} <br> {{i.errors}} <br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Reserved" id="submit-button">
+    <br>
+    {% if messages %}
+    {% for i in messages %}
+    {{i}}
+    {% endfor %}
+    {% endif %}
+</form>
+<br>
+<button>
+    <a href="{% url 'hotel_detail' hotel_id %}">
+        Back
+    </a>
+</button>
+{{hotel|json_script:"hotel_obj"}}
+<!-- <script>
+    hotel = JSON.parse(document.getElementById('hotel_obj').innerText)
+    console.log(hotel)
+    const ws = new WebSocket("ws://127.0.0.1:8000/ws/nc/"+hotel+"/")
+    ws.onopen = function(){
+        console.log("Connection...")
+    }
+    ws.onclose = function(event){
+        console.log("Disconnect")
+    }
+    document.getElementById("submit-button") = function(){
+        ws.send(JSON.stringify({"reservation":"Done"}))
+    }
+</script> -->
+</body>
+</html>

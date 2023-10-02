@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>{{object.hotel_name}}</h1></center>
+    <div>
+        Contect Number : {{object.phone_number}} <br>
+        Location : {{object.hotel_address}}
+    </div>
+    <hr>
+    <div>
+        {% for room in rooms %}
+            Room Number is : {{room.room_number}}<br>
+            Amenities are : <br>
+            {% for amenity in amenities %}
+                {% if amenity.room_id == room.id %}
+                    <ul>
+                    <li>{{amenity.amenity}}</li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            {% for img in images %}
+                {% if img.room_id == room.id  %}
+                <img src="{{img.image.url}}" height="100" width="70">
+                {% endif %}
+            {% endfor %}
+            <br>
+            <button>
+                <a href="{% url 'customer_reservation' room.seller_id room.id  room.room_number %}">Reservtion</a>
+            </button>
+            <hr>
+        {% endfor %}
+    </div>
+    <button>
+        <a href="{% url 'customer_home' %}">Back</a>
+    </button>
+</body>
+</html>

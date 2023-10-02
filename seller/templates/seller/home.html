@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Home</title>
+</head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #4CAF50; /* Beautiful green color */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a.right {
+            margin-left: auto;
+        }
+
+        .navbar a:hover {
+            background-color: #35A63E; /* Slightly darker green for hover effect */
+            color: white;
+        }
+    </style>
+<body>
+
+
+    <div class="navbar">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="right">Contact</a>
+    </div>
+
+
+
+    <table border="1">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Customer Name</th>
+            <th>Customer Username</th>
+            <th>Room Number</th>
+            <th>Customer Phone Number</th>
+            <th>Customer Email</th>
+            <th>Check-in Date</th>
+            <th>Check-out Date</th>
+            <th>Accepted</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reservation in reservations %}
+          <tr>
+            <th>{{forloop.counter}}</th>
+            <td>{{reservation.username}}</td>
+            <td>{{reservation.name}}</td>
+            <td>{{reservation.room_number}}</td>
+            <td>{{reservation.phone_number}}</td>
+            <td>{{reservation.email}}</td>
+            <td>{{reservation.check_in_date}}</td>
+            <td>{{reservation.check_out_date}}</td>
+            <td>{{reservation.is_accepted}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+  <br><br>
+
+   <form>
+
+    <button>
+        <a href="{% url 'seller-logout' %}">Logout</a>
+    </button>
+
+    <br><br>
+
+    <button>
+        <a href="{% url 'seller-changed' %}">Edit Information</a>
+    </button>
+
+    <br><br>
+
+    <button>
+        <a href="{% url 'seller-add_hotel_image' %}">Add Hotel Images</a>
+    </button>
+
+    <br><br>
+
+    <button>
+        <a href="{% url 'adding-room' %}">Add a Room</a>
+    </button>
+
+    <br><br>
+    <button>
+        <a href="{% url 'total-rooms' seller.id %}">Rooms</a>
+    </button>
+
+    <br><br>
+       <button>
+           <a href="{% url 'pending_reservations' seller.id %}">Pending Reservations</a>
+       </button>
+    {% if messages %}
+            {% for i in messages %}
+                {{i}}
+            {% endfor %}
+    {% endif %}
+
+   </form>
+
+   {{hotel|json_script:"hotel_obj"}}
+
+
+</div>
+
+<script>
+    const hotel = JSON.parse(document.getElementById("hotel_obj").textContent)
+    var ws = new WebSocket('ws://127.0.0.1:8000/ws/nc/'+hotel+'/')
+    ws.onopen = function(){
+      console.log("Connection open")
+    }
+    ws.onmessage = function(event){
+      const data = JSON.parse(event.data)
+      document.getElementById("noti").innerText = data.message
+
+    }
+    ws.onclose = function(event){
+      console.log("Connection Closed")
+    }
+  </script>
+</body>
+</html>

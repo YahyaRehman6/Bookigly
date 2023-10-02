@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Hotel Name</th>
+                <th>Room Number</th>
+                <th>Check-In Date</th>
+                <th>Check-Out Date</th>
+                <th>Accepted</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in reservations %}
+            <tr>
+                <td>{{i.seller.hotel_name}}</td>
+                <td>{{i.room_number}}</td>
+                <td>{{i.check_in_date}}</td>
+                <td>{{i.check_out_date}}</td>
+                <td>{{i.is_accepted}}</td>
+                <td><button><a href="{% url 'reservation_deleting_confirm' i.id %}">Delete</a></button></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+<button>
+    <a href="{% url 'customer_home' %}">Back</a>
+</button>
+</body>
+</html>

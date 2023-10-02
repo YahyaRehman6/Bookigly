@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form novalidate method="post">
+        {% csrf_token %}
+    {{detail.as_p}}
+    <input type="submit" value="save">
+    <br><br>
+    <button>
+        <a href="{% url 'room-detail' seller_id room_id %}">
+            Back
+        </a>
+    </button>
+    <br><br>
+    <button>
+        <a href="{% url 'confirmation_amenity_delete' amenity_id room_id seller_id %}">
+            Delete Amenity
+        </a>
+    </button>
+    {% if messages %}
+    {% for i in messages %}
+        {{i}}
+    {% endfor %}
+    {% endif %}    
+</form>
+
+</body>
+</html>
